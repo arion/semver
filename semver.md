@@ -1,4 +1,4 @@
-Семантическая версионность 1.0.0-rc.1
+Семантическое управление версиями 1.0.0-rc.1
 ==============================
 
 В мире разработки программного обеспечения, существует страшное место,
@@ -21,19 +21,19 @@
 Minor версия. При изменение API без сохранение обратной совместимости увеличивается 
 Major версия.
 
-Я называю эту систему "Семантическая версионность". Согласно этой схеме, номера
+Я называю эту систему "Семантическое управление версиями". Согласно этой схеме, номера
 версий и то, как они меняются несут в себе смысл об основном коде и о том, как
 он изменялся от версии к версии.
 
 
-Спецификация семантической версионности
+Спецификация Семантического управления версиями
 ------------------------------------------
 
 Ключевые слова "ДОЛЖЕН (MUST)", "НЕ ДОЛЖЕН (MUST NOT)", "СЛЕДУЕТ (SHOULD)", 
 "НЕ СЛЕДУЕТ (SHOULD NOT)", "МОЖЕТ (MAY)", в этом документе должны 
 интерпретировать в соответствии с RFC 2119.
 
-1. Программный продукт использующий Семантическую Весионность 
+1. Программный продукт использующий Семантическое управление версиями
 ДОЛЖЕН иметь открытый API. Это API должно быть объявлено внутри кода
 или в прикладной документации. API должно быть точным и исчерпывающим.
 
@@ -43,8 +43,8 @@ Major версия.
 Например: 1.9.0 -> 1.10.0 -> 1.11.0.
 
 3. Когда Major версия увеличивается, Minor и Path версии ДОЛЖНЫ обнуляться.
-Когда Minor версия увеличивается, Path версия должны обнуляться. Нарпимер:
-1.1.3 -> 2.0.0 и 2.1.7 -> 2.2.0.
+Когда Minor версия увеличивается, Path версия должны обнуляться. 
+Например: 1.1.3 -> 2.0.0 и 2.1.7 -> 2.2.0.
 
 4. После того как версия пакета выпущена, в этот пакет НЕ ДОЛЖНО вносится
 никаких изменений. Все изменения ДОЛЖНЫ выпускаться с новой версией.
@@ -73,12 +73,12 @@ Minor и Path версий. Path и Minor версии должны обнуля
 когда изменяется Major версия.
 
 10. Предварительные версии МОГУТ быть обозначены тире и идентификатором, разделенным
-точками, сразу после PATH версии. Идентивикатор ДОЛЖЕН содержать символы [0-9A-Za-z-].
+точками, сразу после PATH версии. Идентификатор ДОЛЖЕН содержать символы [0-9A-Za-z-].
 Предварительная версия имеет меньший приоритет, чем нормальная версия.
 Примеры: 1.0.0-alpha, 1.0.0-alpha.1, 1.0.0-0.3.7, 1.0.0-x.7.z.92.
 
 11. Версия сборки МОЖЕТ быть обозначена знаком плюс и идентификатором, разделенным
-точками, сразу же после версии Path или предварительной версии. Идентивикатор 
+точками, сразу же после версии Path или предварительной версии. Идентификатор 
 ДОЛЖЕН содержать символы [0-9A-Za-z-]. Версия сборки имеет больший приоритет, 
 чем нормальная версия.
 Примеры: 1.0.0+build.1, 1.3.7+build.11.e0f985a.
@@ -87,13 +87,13 @@ Minor и Path версий. Path и Minor версии должны обнуля
 предварительные и сборочные версии. Major, Minor и Path версии всегда содержат
 цифры. Предварительные и сборочные версии ДОЛЖНЫ быть отсортированы путем сравнения
 каждого идентификатора разделенного точкой по следующей схеме: Идентификаторы
-содержащие только цифры сравниваются циферно, содержащие буквы по порядку указанному
-в ASCII. Циферные идентификаторы всегда имеют меньший приоритет чем буквенные.
+содержащие только цифры сравниваются числено, содержащие буквы по порядку указанному
+в ASCII. Численные идентификаторы всегда имеют меньший приоритет чем буквенные.
 Примеры: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-beta.2 < 1.0.0-beta.11 <
 1.0.0-rc.1 < 1.0.0-rc.1+build.1 < 1.0.0 < 1.0.0+0.3.7 < 1.3.7+build <
 1.3.7+build.2.b8f12d7 < 1.3.7+build.11.e0f985a.
 
-Почему нужно использовать Семантическую Версионность?
+Почему нужно использовать Семантическое управление версиями?
 ----------------------------
 
 Это не новая или революционная идея. На самом деле, вы уже наверное делали, что
@@ -102,110 +102,86 @@ Minor и Path версий. Path и Minor версии должны обнуля
 бесполезны для управления зависимостями. Давая ясные и в меру гибкие определения, 
 как выше, вы облегчаете взаимодействие пользователей с вашим продуктом. 
 
-A simple example will demonstrate how Semantic Versioning can make dependency
-hell a thing of the past. Consider a library called "Firetruck." It requires a
-Semantically Versioned package named "Ladder." At the time that Firetruck is
-created, Ladder is at version 3.1.0. Since Firetruck uses some functionality
-that was first introduced in 3.1.0, you can safely specify the Ladder
-dependency as greater than or equal to 3.1.0 but less than 4.0.0. Now, when
-Ladder version 3.1.1 and 3.2.0 become available, you can release them to your
-package management system and know that they will be compatible with existing
-dependent software.
+Простой пример, который покажет как Семантическое управление версиями поможет избежать
+ада зависимостей. Рассмотрим библиотеку с названием "Firetruck". Она
+зависим от пакета с названием "Ladder". Когда создали Firetruck, версия 
+Ladder была 3.1.0. Так как Firetruck использует различные методы которые были
+представлены в 3.1.0, вы можете спокойно обновлять Ladder до версии 
+больше чем 3.1.0 но меньше чем 4.0.0. Теперь, когда становятся доступными версии 
+3.1.1 и 3.2.0 пакета Ladder, вы можете перейти на них и знать, что они будут 
+совместимы с существующим программным обеспечением.
 
-As a responsible developer you will, of course, want to verify that any
-package upgrades function as advertised. The real world is a messy place;
-there's nothing we can do about that but be vigilant. What you can do is let
-Semantic Versioning provide you with a sane way to release and upgrade
-packages without having to roll new versions of dependent packages, saving you
-time and hassle.
+Как ответственный разработчик, вы конечно захотите проверить совместимость 
+пакетов. Реальность может быть жестокой, мы ничего не можем сделать с этим.
+Что мы можем сделать, так это позволить Семантическому управлению версиями предоставить
+вам простой способ обновления пакетов. Это сохранит ваше время и нервы.
 
-If all of this sounds desirable, all you need to do to start using Semantic
-Versioning is to declare that you are doing so and then follow the rules. Link
-to this website from your README so others know the rules and can benefit from
-them.
-
+Если вам понравилась идея Семантического управления версиями, вам нужно просто
+следовать правилам изложенным здесь.
 
 FAQ
 ---
 
-### How should I deal with revisions in the 0.y.z initial development phase?
+### Как я должен изменять номер версии на начальном этапе 0.yz?
 
-The simplest thing to do is start your initial development release at 0.1.0
-and then increment the minor version for each subsequent release.
+Проще всего, это начать с версии 0.1.0 и затем увеличить номер версии для каждого 
+последующего релиза.
 
-### How do I know when to release 1.0.0?
+### Как узнать, что пора переходить на версию 1.0.0?
 
-If your software is being used in production, it should probably already be
-1.0.0. If you have a stable API on which users have come to depend, you should
-be 1.0.0. If you're worrying a lot about backwards compatibility, you should
-probably already be 1.0.0.
+Если ваш продукт начали использовать конечные потребители, он должен иметь
+версию 1.0.0. Если у вас есть стабильное открытое API, вы должны перейти на
+1.0.0. Если вы переживаете об обратной совместимости, вы должны перейти на
+1.0.0.
 
-### Doesn't this discourage rapid development and fast iteration?
+### Разве это не препятствовать быстрому развитию и быстрой итерации?
 
-Major version zero is all about rapid development. If you're changing the API
-every day you should either still be in version 0.x.x or on a separate
-development branch working on the next major version.
+Нулевая Major версия, это все что вам нужно. Если ваше открытое API меняется
+каждый день, вы должны находится в версии 0.x.x или работать над следующей
+Major версией.
 
-### If even the tiniest backwards incompatible changes to the public API require a major version bump, won't I end up at version 42.0.0 very rapidly?
+### Если даже мельчайшие изменения не имеют обратной совместимости, не буду ли я в скором времени в версии 42.0.0?
 
-This is a question of responsible development and foresight. Incompatible
-changes should not be introduced lightly to software that has a lot of
-dependent code. The cost that must be incurred to upgrade can be significant.
-Having to bump major versions to release incompatible changes means you'll
-think through the impact of your changes, and evaluate the cost/benefit ratio
-involved.
+Это вопрос ответственного развития и предвидения. Несовместимые изменения не
+должны вноситься маленькими порциями в код, у которого есть много зависимостей.
+Расходы на обновление могут быть слишком значительными.
 
-### Documenting the entire public API is too much work!
+### Документация API это слишком много работы!
 
-It is your responsibility as a professional developer to properly document
-software that is intended for use by others. Managing software complexity is a
-hugely important part of keeping a project efficient, and that's hard to do if
-nobody knows how to use your software, or what methods are safe to call. In
-the long run, Semantic Versioning, and the insistence on a well defined public
-API can keep everyone and everything running smoothly.
+Это ваша ответственность, как профессионального разработчика, создающего продукт
+предназначенный для использования другими людьми. Управление программным обеспечением 
+является сложной и чрезвычайно важной частью поддержания эффективности проекта.
 
-### What do I do if I accidentally release a backwards incompatible change as a minor version?
+### Что делать если я случайно указал Minor версию вместо Major?
 
-As soon as you realize that you've broken the Semantic Versioning spec, fix
-the problem and release a new minor version that corrects the problem and
-restores backwards compatibility. Remember, it is unacceptable to modify
-versioned releases, even under this circumstance. If it's appropriate,
-document the offending version and inform your users of the problem so that
-they are aware of the offending version.
+Как только вы поняли, что вы сломали Семантическое управление версиями, вы должны
+зафиксировать проблему и выпустить новую версию, которая исправляет проблемы и
+восстанавливает обратную совместимость.
 
-### What should I do if I update my own dependencies without changing the public API?
+### Что мне делать, если я обновлю свою внутреннюю зависимость, не меняя открыто API?
 
-That would be considered compatible since it does not affect the public API.
-Software that explicitly depends on the same dependencies as your package
-should have their own dependency specifications and the author will notice any
-conflicts. Determining whether the change is a patch level or minor level
-modification depends on whether you updated your dependencies in order to fix
-a bug or introduce new functionality. I would usually expect additional code
-for the latter instance, in which case it's obviously a minor level increment.
+Это допустимо, если не как не влияет на открытое API. Продукт который явно зависит
+от вашего пакета должен иметь свою спецификацию зависимостей и автор заметит конфликт.
 
-### What should I do if the bug that is being fixed returns the code to being compliant with the public API (i.e. the code was incorrectly out of sync with the public API documentation)?
+### Как мне отметить устаревшую функциональность?
 
-Use your best judgment. If you have a huge audience that will be drastically
-impacted by changing the behavior back to what the public API intended, then
-it may be best to perform a major version release, even though the fix could
-strictly be considered a patch release. Remember, Semantic Versioning is all
-about conveying meaning by how the version number changes. If these changes
-are important to your users, use the version number to inform them.
+Устаревшая функциональность, это нормально и часто приходится прибегать к ней, для того, 
+что бы двигаться вперед. Когда вы помечаете как устаревшую часть вашего открытого API, вы
+должны сделать две вещи: (1) обновить документацию, (2) выпустить хотя бы один не большой
+релиз поддерживающий как новую, так и устаревшую функциональность, что бы пользователи
+успели плавно перестроится.
 
-### How should I handle deprecating functionality?
-
-Deprecating existing functionality is a normal part of software development and is often required to make forward progress. When you deprecate part of your public API, you should do two things: (1) update your documentation to let users know about the change, (2) issue a new minor release with the deprecation in place. Before you completely remove the functionality in a new major release there should be at least one minor release that contains the deprecation so that users can smoothly transition to the new API.
-
-
-About
+Об авторе
 -----
 
-The Semantic Versioning specification is authored by [Tom Preston-Werner](http://tom.preston-werner.com), inventor of Gravatars and cofounder of GitHub.
+Автор Семантическое управление версиями [Tom Preston-Werner](http://tom.preston-werner.com), создатель Gravatars и соучредитель GitHub.
 
-If you'd like to leave feedback, please [open an issue on GitHub](https://github.com/mojombo/semver/issues).
+Вы можете высказать вопросы и пожелания по ссылкам: 
+[open an issue on GitHub for en version](https://github.com/mojombo/semver/issues)
+[open an issue on GitHub for ru version](https://github.com/arion/semver/issues).
 
 
-License
+Лицензия
 -------
 
 Creative Commons - CC BY 3.0
